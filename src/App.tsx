@@ -2,6 +2,7 @@ import { lazy, Suspense } from "react";
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import { Footer, Navbar } from "./components";
+import { Loader } from "./components/Loader";
 import { PublicRoutes } from "./models";
 
 const Home = lazy(() => import("./pages/Home/Home"));
@@ -11,7 +12,7 @@ const Pokedex = lazy(() => import("./pages/Pokedex/Pokedex"));
 function App() {
   return (
     <main>
-      <Suspense fallback={<>CARGANDO ALGO...</>}>
+      <Suspense fallback={<Loader />}>
         <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
