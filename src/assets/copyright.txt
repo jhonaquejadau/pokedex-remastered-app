@@ -2,3 +2,4 @@ SVG logos source..
 
 * https://www.svgrepo.com/svg/276264/pokeball-pokemon
 * https://www.pockettactics.com/pokemon/wallpapers
+* https://es.wikipedia.org/wiki/Archivo:International_Pok%C3%A9mon_logo.svg

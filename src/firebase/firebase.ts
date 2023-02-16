@@ -1,5 +1,6 @@
-import { FirebaseInterface } from "@src/models";
+import { FirebaseInterface } from "@/models";
 import { initializeApp } from "firebase/app";
+import { getFirestore } from "firebase/firestore";
 
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -14,3 +15,4 @@ const firebaseConfig: FirebaseInterface = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
+export const db = getFirestore(app);

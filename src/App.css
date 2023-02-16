@@ -1,9 +1,37 @@
+/*TAILWIND CONFIGURATION*/
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*STYLING DEFAULT HTML SELECTORS*/
 html,
 body {
-  background-color: aquamarine;
+  background: linear-gradient(to bottom, #eef2f3, #ffffff);
   margin: 0;
   padding: 0;
   width: 100%;
   height: 100%;
 }
 
+/*CUSTOM CLASSES*/
+.layout-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+/*EXTRA STYLING NAVBAR ELEMENTS*/
+ul li:hover {
+  border-bottom: 2px solid orangered;
+}
+
+.login:hover {
+  background-color: aliceblue;
+}
+
+ul li:hover,
+ul li:hover,
+.login:hover,
+.logo {
+  cursor: pointer;
+}

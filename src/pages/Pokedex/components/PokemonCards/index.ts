@@ -1,0 +1,1 @@
+export { default as PokemonCards } from './PokemonCards';
