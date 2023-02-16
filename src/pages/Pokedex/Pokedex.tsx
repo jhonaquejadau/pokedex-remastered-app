@@ -1,4 +1,3 @@
-import { Loader } from "@/components/Loader";
 import { PokemonInterface } from "@/models";
 import { pokemons_data } from "@/services/pokemons";
 import React, { useEffect, useState } from "react";
@@ -24,7 +23,7 @@ const Pokedex: React.FC<PokedexInterface> = () => {
 
   return (
     <section className="w-[90%] mx-auto">
-      <Search />
+      <Search pokemons={pokemons} setPokemons={setPokemons} resetPokemons={resetPokemons}/>
       <PokemonCards pokemons={pokemons} loading={loading}/>
     </section>
   );

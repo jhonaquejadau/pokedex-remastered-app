@@ -1,18 +1,19 @@
 import { Loader } from "@/components/Loader";
 import { PokemonInterface } from "@/models";
 
-const PokemonCards = ({ pokemons, loading }: any) => {
+const PokemonCards = ({ pokemons }: any) => {
+  console.log(pokemons)
   return (
     <>
       {pokemons.length === 0 ? (
         <Loader />
       ) : (
-        <div className="grid grid-cols-6 gap-4 w-full ">
+        <div className={`${pokemons.length <20 ? 'min-h-screen' : 'h-100%'} grid grid-cols-6 gap-4 w-full `}>
           {pokemons?.map((pokemon: PokemonInterface) => {
             return (
               <div
                 key={pokemon.id}
-                className={`relative text-xl flex flex-col justify-center items-center h-full shadow bg-slate-100 hover:scale-[1.04]`}
+                className={`relative text-xl flex flex-col justify-center items-center h-[300px] shadow bg-slate-100 hover:scale-[1.04]`}
               >
                 <img
                   src={pokemon.img}
