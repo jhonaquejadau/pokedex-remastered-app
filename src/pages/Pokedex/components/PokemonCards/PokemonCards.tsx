@@ -1,14 +1,47 @@
 import { Loader } from "@/components/Loader";
 import { PokemonInterface } from "@/models";
+import BookmarkAddIcon from "@mui/icons-material/BookmarkAdd";
+import BookmarkAddedIcon from "@mui/icons-material/BookmarkAdded";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const PokemonCards = ({ pokemons }: any) => {
-  console.log(pokemons)
+  const user = useSelector((store: any) => store.user)
+  console.log(user)
+  const navigate = useNavigate()
+  const addFavorite = (data: PokemonInterface) => {
+    const add = document.getElementById(`add-${data.id}`);
+    const added = document.getElementById(`added-${data.id}`)
+    if(user.name) {
+      add?.classList.remove('show')
+      add?.classList.add('hidde')
+      added?.classList.remove('hidde')
+      added?.classList.remove('show')
+    } else {
+      navigate('/login')
+    }
+    
+  };
+
+  const removeFavorite = (data: PokemonInterface) => {
+    const add = document.getElementById(`add-${data.id}`);
+    const added = document.getElementById(`added-${data.id}`)
+    added?.classList.remove('show')
+    added?.classList.add('hidde')
+    add?.classList.remove('hidde')
+    add?.classList.remove('show')
+  };
+
   return (
     <>
       {pokemons.length === 0 ? (
         <Loader />
       ) : (
-        <div className={`${pokemons.length <20 ? 'min-h-screen' : 'h-100%'} grid grid-cols-6 gap-4 w-full `}>
+        <div
+          className={`${
+            pokemons.length < 20 ? "min-h-screen" : "h-100%"
+          } grid grid-cols-6 gap-4 w-full `}
+        >
           {pokemons?.map((pokemon: PokemonInterface) => {
             return (
               <div
@@ -18,7 +51,7 @@ const PokemonCards = ({ pokemons }: any) => {
                 <img
                   src={pokemon.img}
                   alt="img"
-                  className="w-48 h-48 hover:scale-[1.06]"
+                  className="w-40 h-40 hover:scale-[1.03]"
                 />
                 <h1 className="capitalize font-[400] text-2xl text-left">
                   {pokemon.name}
@@ -39,6 +72,16 @@ const PokemonCards = ({ pokemons }: any) => {
                       </div>
                     );
                   })}
+                </div>
+                <div
+                  id={`add-${pokemon.id}`}
+                  onClick={() => addFavorite(pokemon)}
+                  className="show absolute top-4 right-4"
+                >
+                  <BookmarkAddIcon className=" text-slate-300 " />
+                </div>
+                <div onClick={() => removeFavorite(pokemon)} id={`added-${pokemon.id}`} className="hidde absolute top-4 right-4">
+                  <BookmarkAddedIcon className="text-slate-600" />
                 </div>
               </div>
             );
