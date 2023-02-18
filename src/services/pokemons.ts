@@ -1,4 +1,5 @@
 import { db } from "@/firebase";
+import { PokemonInterface } from "@/models";
 import { doc, getDoc } from "firebase/firestore";
 
 export const getPokemonsData = async (id_document: string) => {
@@ -17,6 +18,7 @@ const pokemons_part_two: any = await getPokemonsData(
   "r0Y5v56I0qMV1CKHoPs2"
 );
 
-export const pokemons_data = JSON.parse(pokemons_part_one.part_one).concat(
+export const all_pokemons = JSON.parse(pokemons_part_one.part_one).concat(
   JSON.parse(pokemons_part_two.part_two)
 );
+
