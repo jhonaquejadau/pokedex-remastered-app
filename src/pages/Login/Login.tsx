@@ -1,11 +1,16 @@
-import React from "react";
-import { useFormik, Formik } from "formik";
 import { FormDataInterface } from "@/models";
-import background from "../../assets/login.svg";
-import { useNavigate } from "react-router-dom";
-import { TextField } from "@mui/material";
-import * as Yup from "yup";
 import { LoginValidationSchema } from "@/utilities/login.validation.schema";
+import { TextField } from "@mui/material";
+import { Formik } from "formik";
+import React from "react";
+import { useNavigate } from "react-router-dom";
+import background from "../../assets/login.svg";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth, db } from "@/firebase";
+import { useDispatch } from "react-redux";
+import { getUserInfo } from "@/services/getUser";
+import { collection, getDocs, query, where } from "firebase/firestore";
+import { createUser } from "@/redux/states/user";
 
 export interface LoginInterface {}
 
@@ -15,6 +20,7 @@ const initialLoginValues: FormDataInterface = {
 };
 
 const Login: React.FC<LoginInterface> = () => {
+  const dispatcher = useDispatch();
   const navigate = useNavigate();
   return (
     <div className="flex flex-row justify-center w-full h-[89vh] text-center">
@@ -25,13 +31,31 @@ const Login: React.FC<LoginInterface> = () => {
         <Formik
           initialValues={initialLoginValues}
           onSubmit={(values, actions) => {
-            console.log(values);
+            //Send information for login into firebase
+            signInWithEmailAndPassword(auth, values.email, values.password)
+              .then(async (userCredential) => {
+                //Getting user from firestore
+                const userData = await getUserInfo(userCredential);
+
+                //Update store to get user info form firebase
+                dispatcher(createUser(userData));
+                navigate("/dashboard");
+              })
+              .catch((error) => console.log("error", error));
+
             actions.resetForm();
           }}
           validationSchema={LoginValidationSchema}
           enableReinitialize
         >
-          {({handleSubmit, handleChange, handleBlur, touched, values, errors}) => (
+          {({
+            handleSubmit,
+            handleChange,
+            handleBlur,
+            touched,
+            values,
+            errors,
+          }) => (
             <form
               onSubmit={handleSubmit}
               className="flex flex-col justify-center w-full py-4 px-10 gap-4"
