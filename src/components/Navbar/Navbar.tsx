@@ -6,8 +6,6 @@ import { useSelector } from "react-redux";
 
 const Navbar = () => {
   const user = useSelector((store: any) => store.user);
-  console.log(user);
-  
 
   return (
     <nav className="layout-row h-[6vh] px-4 bg-orange-500 text-white font-bold">
@@ -15,17 +13,18 @@ const Navbar = () => {
         <img src={logo} alt="logo" className="w-28 logo" />
       </Link>
       <ul className="layout-row gap-8 mx-auto capitalize">
-        <Link to="/">
-          <li>home</li>
-        </Link>
+        {user.name ? (
+          <Link to={`/${PrivateRoutes.PRIVATE}`}>
+            <li>dashboard</li>
+          </Link>
+        ) : (
+          <Link to="/">
+            <li>home</li>
+          </Link>
+        )}
         <Link to={`/${PublicRoutes.POKEDEX}`}>
           <li>pokedex</li>
         </Link>
-        {user.name && (
-          <Link to={`/${PrivateRoutes.DASHBOARD}`}>
-            <li>dashboard</li>
-          </Link>
-        )}
         <li>documentation</li>
       </ul>
       {!user.name && (
