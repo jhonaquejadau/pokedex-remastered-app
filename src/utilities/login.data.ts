@@ -1,4 +1,4 @@
-interface LoginInterface {
+export interface LoginInterface {
   id: string;
   name: string;
   type: string;
