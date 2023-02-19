@@ -3,4 +3,5 @@ export interface FormDataInterface {
   nickname?: string;
   email: string;
   password: string;
+  confirmPassword?: string;
 }
