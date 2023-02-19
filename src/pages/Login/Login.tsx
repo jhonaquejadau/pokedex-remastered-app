@@ -17,7 +17,7 @@ const initialLoginValues: FormDataInterface = {
 const Login: React.FC<LoginInterface> = () => {
   const navigate = useNavigate();
   return (
-    <div className="flex flex-row justify-center w-full h-[90vh] text-center">
+    <div className="flex flex-row justify-center w-full h-[89vh] text-center">
       <div className="flex flex-col justify-center w-[50%] h-full p-16">
         <h1 className="text-4xl font-bold">WELCOME BACK</h1>
         <p>Login into your acocunt and manage your dahsboard...</p>

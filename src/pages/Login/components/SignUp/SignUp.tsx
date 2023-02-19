@@ -15,7 +15,7 @@ const initialFormData: FormDataInterface = {
 const SignUp = () => {
   const navigate = useNavigate();
   return (
-    <div className="w-full h-[90vh] flex flex-col justify-center items-center border-4">
+    <div className="w-full h-[89vh] flex flex-col justify-center items-center">
       <h1 className="text-4xl font-bold">Oooh you hasn't acocunt yet!!</h1>
       <p>
         Create your pokemon account and enjoy this powerful pokedex

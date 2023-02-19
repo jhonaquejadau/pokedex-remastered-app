@@ -22,11 +22,12 @@ body {
 
 /*EXTRA STYLING NAVBAR ELEMENTS*/
 ul li:hover {
-  border-bottom: 2px solid orangered;
+  border-bottom: 2px solid white;
 }
 
 .login:hover {
   background-color: aliceblue;
+  color: #4f4f4f;
 }
 
 ul li:hover,

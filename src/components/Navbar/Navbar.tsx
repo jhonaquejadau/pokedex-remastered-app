@@ -7,7 +7,7 @@ const Navbar = () => {
 
 
   return (
-    <nav className="layout-row px-4 py-2 bg-slate-300">
+    <nav className="layout-row h-[6vh] px-4 bg-orange-500 text-white font-bold">
       <Link to="/">
         <img src={logo} alt="logo" className="w-28 logo" />
       </Link>
@@ -21,7 +21,7 @@ const Navbar = () => {
         <li>documentation</li>
       </ul>
       <Link to={`/${PublicRoutes.LOGIN}`}>
-        <div className="layout-row px-2 rounded login">
+        <div className="layout-row p-2 rounded login">
           <p className="mr-2">Login</p>
           <AccountCircle />
         </div>
