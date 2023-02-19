@@ -7,6 +7,7 @@ import { PublicRoutes } from "./models";
 
 const Home = lazy(() => import("./pages/Home/Home"));
 const Login = lazy(() => import("./pages/Login/Login"));
+const SignUp = lazy(() => import("./pages/Login/components/SignUp/SignUp"))
 const Pokedex = lazy(() => import("./pages/Pokedex/Pokedex"));
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path={PublicRoutes.LOGIN} element={<Login />} />
+          <Route path={PublicRoutes.REGISTER} element={<SignUp />} />
           <Route path={PublicRoutes.POKEDEX} element={<Pokedex />} />
         </Routes>
         <Footer />
