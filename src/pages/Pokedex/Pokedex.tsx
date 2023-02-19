@@ -1,6 +1,5 @@
 import { PokemonInterface } from "@/models";
 import { all_pokemons } from "@/services/pokemons";
-// import { pokemons_data } from "@/services/pokemons";
 import React, { useEffect, useState } from "react";
 import { Search } from "./components";
 import { PokemonCards } from "./components/PokemonCards";

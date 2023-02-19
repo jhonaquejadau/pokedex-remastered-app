@@ -1,5 +1,5 @@
 import { Loader } from "@/components/Loader";
-import { PokemonInterface } from "@/models";
+import { PokemonInterface, PrivateRoutes } from "@/models";
 import BookmarkAddIcon from "@mui/icons-material/BookmarkAdd";
 import BookmarkAddedIcon from "@mui/icons-material/BookmarkAdded";
 import { useSelector } from "react-redux";
@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 
 const PokemonCards = ({ pokemons }: any) => {
   const user = useSelector((store: any) => store.user)
-  console.log(user)
+  
   const navigate = useNavigate()
   const addFavorite = (data: PokemonInterface) => {
     const add = document.getElementById(`add-${data.id}`);
@@ -18,7 +18,7 @@ const PokemonCards = ({ pokemons }: any) => {
       added?.classList.remove('hidde')
       added?.classList.remove('show')
     } else {
-      navigate('/login')
+      navigate(`/${PrivateRoutes.PRIVATE}`, {replace: true})
     }
     
   };

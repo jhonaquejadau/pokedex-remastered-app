@@ -1,16 +1,19 @@
-import { FormDataInterface } from "@/models";
-import { LoginValidationSchema } from "@/utilities/login.validation.schema";
+import { auth } from "@/firebase";
+import {
+  FormDataInterface,
+  LoginValidationSchema,
+  PrivateRoutes,
+} from "@/models";
+import { createUser } from "@/redux/states/user";
+import { StoreInterface } from "@/redux/store";
+import { getUserInfo } from "@/services/getUser";
 import { TextField } from "@mui/material";
+import { signInWithEmailAndPassword } from "firebase/auth";
 import { Formik } from "formik";
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import background from "../../assets/login.svg";
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth, db } from "@/firebase";
-import { useDispatch } from "react-redux";
-import { getUserInfo } from "@/services/getUser";
-import { collection, getDocs, query, where } from "firebase/firestore";
-import { createUser } from "@/redux/states/user";
 
 export interface LoginInterface {}
 
@@ -39,7 +42,7 @@ const Login: React.FC<LoginInterface> = () => {
 
                 //Update store to get user info form firebase
                 dispatcher(createUser(userData));
-                navigate("/dashboard");
+                navigate(`/${PrivateRoutes.PRIVATE}`, { replace: true });
               })
               .catch((error) => console.log("error", error));
 

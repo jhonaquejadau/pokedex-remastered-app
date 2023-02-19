@@ -1,11 +1,10 @@
-import { FormDataInterface } from "@/models";
-import { useNavigate } from "react-router-dom";
-import { Formik, Form } from "formik";
-import { RegisterValidationSchema } from "@/utilities/register.validation.schema";
+import { auth, db } from "@/firebase";
+import { FormDataInterface, RegisterValidationSchema } from "@/models";
 import { TextField } from "@mui/material";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth, db } from "@/firebase";
 import { addDoc, collection } from "firebase/firestore";
+import { Formik } from "formik";
+import { useNavigate } from "react-router-dom";
 
 const initialFormData: FormDataInterface = {
   name: "",
@@ -27,12 +26,10 @@ const SignUp = () => {
       <Formik
         initialValues={initialFormData}
         onSubmit={(values, actions) => {
-          console.log(values);
 
           //Send data from firebase when an user is created
           createUserWithEmailAndPassword(auth, values.email, values.password)
             .then( async (userCredential) => {
-              console.log(userCredential);
               try {
                 await addDoc(collection(db,'users'), {
                   ...values,
