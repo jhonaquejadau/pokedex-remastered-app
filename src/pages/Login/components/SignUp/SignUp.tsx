@@ -1,55 +1,114 @@
-import { Formulary } from "@/components/Formulary";
 import { FormDataInterface } from "@/models";
-import { registerFields } from "@/utilities/register.data";
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Formik, Form } from "formik";
+import { RegisterValidationSchema } from "@/utilities/register.validation.schema";
+import { TextField } from "@mui/material";
 
 const initialFormData: FormDataInterface = {
   name: "",
   nickname: "",
   email: "",
   password: "",
+  confirmPassword: "",
 };
 
 const SignUp = () => {
   const navigate = useNavigate();
-  const [formData, setFormData] = useState<FormDataInterface>(initialFormData);
-  
-  const handleOnChange = (event: any) => {
-    const { name, value } = event.target;
-    setFormData({ ...formData, [name]: value });
-  };
-
-  const handleSubmit = (event: any) => {
-    event.preventDefault();
-    setFormData(initialFormData);
-  };
-  
   return (
-    <div className="flex flex-col justify-center w-full h-[90vh] text-center">
-		<h1 className="font-bold text-4xl">Ooooh, you're new here</h1>
-		<p>Create an account and enjoy this powerfull pokedex application</p>
-        <form
-          onSubmit={handleSubmit}
-          className="w-full flex flex-col justify-center gap-4 px-16 py-4"
-        >
-          {registerFields.map((field: any) => {
-            return <Formulary key={field.id} {...field} onChange={handleOnChange} />;
-          })}
-          <button className="bg-slate-400 py-1 px-6 w-[50%] mx-auto rounded">
-            Create user
-          </button>
-        </form>
-
-        <p>
-          Already have an account?{" "}
-          <span
-            className="font-bold text-yellow-500 hover:cursor-pointer"
-            onClick={() => navigate("/login")}
+    <div className="w-full h-[90vh] flex flex-col justify-center items-center border-4">
+      <h1 className="text-4xl font-bold">Oooh you hasn't acocunt yet!!</h1>
+      <p>
+        Create your pokemon account and enjoy this powerful pokedex
+        application...
+      </p>
+      <Formik
+        initialValues={initialFormData}
+        onSubmit={(values, actions) => {
+          console.log(values);
+          actions.resetForm();
+        }}
+        validationSchema={RegisterValidationSchema}
+        enableReinitialize
+      >
+        {({
+          handleSubmit,
+          handleChange,
+          handleBlur,
+          touched,
+          errors,
+          values,
+        }) => (
+          <form
+            onSubmit={handleSubmit}
+            className="flex flex-col justify-center w-[50%] gap-4 shadow-xl p-4"
           >
-            Log in
-          </span>
-        </p>
+            <TextField
+              type="text"
+              name="name"
+              label="name"
+              value={values.name}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              error={touched.name && errors.name ? true : false}
+              helperText={touched.name && errors.name}
+            />
+            <TextField
+              type="text"
+              name="nickname"
+              label="nickname"
+              value={values.nickname}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              error={touched.nickname && errors.nickname ? true : false}
+              helperText={touched.nickname && errors.nickname}
+            />
+            <TextField
+              type="text"
+              name="email"
+              label="email"
+              value={values.email}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              error={touched.email && errors.email ? true : false}
+              helperText={touched.email && errors.email}
+            />
+            <TextField
+              type="password"
+              name="password"
+              label="password"
+              value={values.password}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              error={touched.password && errors.password ? true : false}
+              helperText={touched.password && errors.password}
+            />
+            <TextField
+              type="password"
+              name="confirmPassword"
+              label="confirm password"
+              value={values.confirmPassword}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              error={
+                touched.confirmPassword && errors.confirmPassword ? true : false
+              }
+              helperText={touched.confirmPassword && errors.confirmPassword}
+            />
+            <button className="w-[50%] mx-auto px-4 py-2 font-bold bg-orange-500 text-white rounded ">
+              Create user
+            </button>
+            <p className="text-center">
+              Already have an account?{" "}
+              <span
+                className="font-bold text-orange-400 hover:cursor-pointer"
+                onClick={() => navigate("/login")}
+              >
+                Sign In
+              </span>
+            </p>
+          </form>
+        )}
+      </Formik>
     </div>
   );
 };
