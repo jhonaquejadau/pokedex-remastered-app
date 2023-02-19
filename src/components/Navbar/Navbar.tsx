@@ -1,31 +1,41 @@
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import logo from "../../assets/logo.svg";
 import { Link } from "react-router-dom";
-import { PublicRoutes } from "@/models/index";
+import { PrivateRoutes, PublicRoutes } from "@/models/index";
+import { useSelector } from "react-redux";
 
 const Navbar = () => {
-
+  const user = useSelector((store: any) => store.user);
+  console.log(user);
+  
 
   return (
     <nav className="layout-row h-[6vh] px-4 bg-orange-500 text-white font-bold">
       <Link to="/">
         <img src={logo} alt="logo" className="w-28 logo" />
       </Link>
-      <ul className="layout-row mx-auto capitalize">
+      <ul className="layout-row gap-8 mx-auto capitalize">
         <Link to="/">
-          <li className="mr-4">home</li>
+          <li>home</li>
         </Link>
         <Link to={`/${PublicRoutes.POKEDEX}`}>
-          <li className="mx-10">pokedex</li>
+          <li>pokedex</li>
         </Link>
+        {user.name && (
+          <Link to={`/${PrivateRoutes.DASHBOARD}`}>
+            <li>dashboard</li>
+          </Link>
+        )}
         <li>documentation</li>
       </ul>
-      <Link to={`/${PublicRoutes.LOGIN}`}>
-        <div className="layout-row p-2 rounded login">
-          <p className="mr-2">Login</p>
-          <AccountCircle />
-        </div>
-      </Link>
+      {!user.name && (
+        <Link to={`/${PublicRoutes.LOGIN}`}>
+          <div className="layout-row p-2 rounded login">
+            <p className="mr-2">Login</p>
+            <AccountCircle />
+          </div>
+        </Link>
+      )}
     </nav>
   );
 };
