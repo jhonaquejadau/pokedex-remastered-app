@@ -1,6 +1,7 @@
 import { auth } from "@/firebase";
 import { PublicRoutes } from "@/models";
 import { resetUser } from "@/redux/states/user";
+import { StoreInterface } from "@/redux/store";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -10,7 +11,7 @@ export interface DashboardInterface {}
 const Dashboard: React.FC<DashboardInterface> = () => {
   const navigate = useNavigate();
   const dispatcher = useDispatch();
-  const user = useSelector((store: any) => store.user);
+  const user = useSelector((store: StoreInterface) => store.user);
 
   const handleSignOut = () => {
     signOut(auth)

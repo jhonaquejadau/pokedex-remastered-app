@@ -1,35 +1,39 @@
 import { Loader } from "@/components/Loader";
 import { PokemonInterface, PrivateRoutes } from "@/models";
+import { StoreInterface } from "@/redux/store";
 import BookmarkAddIcon from "@mui/icons-material/BookmarkAdd";
 import BookmarkAddedIcon from "@mui/icons-material/BookmarkAdded";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-const PokemonCards = ({ pokemons }: any) => {
-  const user = useSelector((store: any) => store.user)
-  
-  const navigate = useNavigate()
+interface PropsInterface {
+  pokemons: PokemonInterface[];
+}
+
+const PokemonCards = ({ pokemons }: PropsInterface) => {
+  const user = useSelector((store: StoreInterface) => store.user);
+
+  const navigate = useNavigate();
   const addFavorite = (data: PokemonInterface) => {
     const add = document.getElementById(`add-${data.id}`);
-    const added = document.getElementById(`added-${data.id}`)
-    if(user.name) {
-      add?.classList.remove('show')
-      add?.classList.add('hidde')
-      added?.classList.remove('hidde')
-      added?.classList.remove('show')
+    const added = document.getElementById(`added-${data.id}`);
+    if (user.name) {
+      add?.classList.remove("show");
+      add?.classList.add("hidde");
+      added?.classList.remove("hidde");
+      added?.classList.remove("show");
     } else {
-      navigate(`/${PrivateRoutes.PRIVATE}`, {replace: true})
+      navigate(`/${PrivateRoutes.PRIVATE}`, { replace: true });
     }
-    
   };
 
   const removeFavorite = (data: PokemonInterface) => {
     const add = document.getElementById(`add-${data.id}`);
-    const added = document.getElementById(`added-${data.id}`)
-    added?.classList.remove('show')
-    added?.classList.add('hidde')
-    add?.classList.remove('hidde')
-    add?.classList.remove('show')
+    const added = document.getElementById(`added-${data.id}`);
+    added?.classList.remove("show");
+    added?.classList.add("hidde");
+    add?.classList.remove("hidde");
+    add?.classList.remove("show");
   };
 
   return (
@@ -80,7 +84,11 @@ const PokemonCards = ({ pokemons }: any) => {
                 >
                   <BookmarkAddIcon className=" text-slate-300 " />
                 </div>
-                <div onClick={() => removeFavorite(pokemon)} id={`added-${pokemon.id}`} className="hidde absolute top-4 right-4">
+                <div
+                  onClick={() => removeFavorite(pokemon)}
+                  id={`added-${pokemon.id}`}
+                  className="hidde absolute top-4 right-4"
+                >
                   <BookmarkAddedIcon className="text-slate-600" />
                 </div>
               </div>

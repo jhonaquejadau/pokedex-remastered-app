@@ -1,24 +1,27 @@
 import { PokemonInterface } from "@/models";
 import { useState } from "react";
 
-const Search = ({pokemons, setPokemons, resetPokemons}:any) => {
+interface PropsInterface {
+  pokemons: PokemonInterface[];
+  setPokemons: any
+  resetPokemons: PokemonInterface[]
+}
+
+const Search = ({pokemons, setPokemons, resetPokemons}:PropsInterface) => {
   const [input, setInput] = useState("");
 
-  const handleSearch = (e: any) => {
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     const { value } = e.target;
     setInput(value);
 
     if(value === ""){
-      console.log('reset');
       setPokemons(resetPokemons)
     }else {
-      console.log('escribiendo');
       setPokemons(pokemons.filter((pokemon: PokemonInterface) => pokemon.name.includes(value) ))
     }
   };
 
-  console.log(input)
 
   return (
     <div className="w-full py-8 text-center text-[1.5rem]">
