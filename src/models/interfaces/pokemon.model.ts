@@ -11,5 +11,6 @@ export interface PokemonInterface {
     stats: [],
     img: string,
     base_experience: number,
-    background: string
+    background: string;
+    isFavorite: boolean;
 }
