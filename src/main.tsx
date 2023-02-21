@@ -11,7 +11,7 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
-    <BrowserRouter basename="/pokedex-remastered-app">
+    <BrowserRouter>
       <Provider store={store}>
         <App />
       </Provider>

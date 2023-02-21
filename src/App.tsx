@@ -20,7 +20,7 @@ function App() {
       <Suspense fallback={<Loader />}>
         <Navbar />
         <RoutesWithNotFound>
-          <Route path="/pokedex-remastered-app" element={<Home />} />
+          <Route path="/" element={<Home />} />
           <Route path={PublicRoutes.LOGIN} element={<Login />} />
           <Route path={PublicRoutes.REGISTER} element={<SignUp />} />
           <Route path={PublicRoutes.POKEDEX} element={<Pokedex />} />

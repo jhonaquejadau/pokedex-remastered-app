@@ -10,7 +10,7 @@ const Dashboard = lazy(() => import("./Dashboard/Dashboard"))
 const Private: React.FC<PrivateInterface> = () => {
   return (
     <RoutesWithNotFound>
-      <Route path="/pokedex-remastered-app" element={<Navigate to={PrivateRoutes.DASHBOARD}/>} />
+      <Route path="/" element={<Navigate to={PrivateRoutes.DASHBOARD}/>} />
       <Route path={PrivateRoutes.DASHBOARD} element={<Dashboard />} />
     </RoutesWithNotFound>
   );
