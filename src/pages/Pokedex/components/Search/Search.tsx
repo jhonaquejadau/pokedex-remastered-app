@@ -1,14 +1,11 @@
 import { PokemonInterface } from "@/models";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { PokedexContextConsumer } from "../../context/PokedexContext";
 
-interface PropsInterface {
-  pokemons: PokemonInterface[];
-  setPokemons: any
-  resetPokemons: PokemonInterface[]
-}
 
-const Search = ({pokemons, setPokemons, resetPokemons}:PropsInterface) => {
+const Search = () => {
   const [input, setInput] = useState("");
+  const {pokemons,resetPokemons, setPokemons} = useContext(PokedexContextConsumer)
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
@@ -21,7 +18,6 @@ const Search = ({pokemons, setPokemons, resetPokemons}:PropsInterface) => {
       setPokemons(pokemons.filter((pokemon: PokemonInterface) => pokemon.name.includes(value) ))
     }
   };
-
 
   return (
     <div className="w-full py-8 text-center text-[1.5rem]">
