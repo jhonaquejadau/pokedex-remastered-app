@@ -26,8 +26,6 @@ const Cards = ({ pokemon }: CardInterface) => {
           <BookmarkAddIcon className="absolute top-4 right-4 text-slate-400" />
         </div>
       );
-    } else {
-      
     }
   };
 

@@ -19,6 +19,13 @@ const PokedexContextProvider = ({ children }: any) => {
           : { ...pokemon };
       });
     });
+    setPokemonsFiltered((prev: PokemonInterface[]) => {
+      return prev.map((pokemon: PokemonInterface) => {
+        return pokemon.id === id
+          ? { ...pokemon, isFavorite: !pokemon.isFavorite }
+          : { ...pokemon };
+      });
+    });
   }
 
   const getPokemonData = async () => {

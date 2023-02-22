@@ -20,7 +20,7 @@ const PokemonCards = () => {
             pokemonsData.length < 20 ? "h-[89vh]" : "h-100%"
           } grid grid-cols-6 gap-4 w-full `}
         >
-          {pokemonsData?.map((pokemon: PokemonInterface) => {
+          {pokemonsFiltered?.map((pokemon: PokemonInterface) => {
             return <PokemonCard key={pokemon.id} pokemon={pokemon} />;
           })}
         </div>
