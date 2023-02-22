@@ -1,4 +1,4 @@
-import { PokemonInterface } from "@/models";
+import { PokemonInterface, PokemonTypesInterface } from "@/models";
 import { getPokemonsData } from "@/services/pokemons";
 import { createContext, useEffect, useState } from "react";
 
@@ -6,17 +6,23 @@ const PokedexContext = createContext<any>(null);
 
 const PokedexContextProvider = ({ children }: any) => {
   const [pokemons, setPokemons] = useState<PokemonInterface[]>([]);
+  const [pokemonsFiltered, setPokemonsFiltered] = useState<PokemonInterface[]>([]);
   const [resetPokemons, setResetPokemons] = useState<PokemonInterface[]>([]);
+  const [types, setTypes] = useState<PokemonTypesInterface[]>([]);
+  const [searchActivate, setSearchActive] = useState<boolean>(false)
 
   function toggleFavorite(id: number) {
-    setPokemons((prev: PokemonInterface[]) => { 
-        return prev.map((pokemon: PokemonInterface) => {
-            return pokemon.id === id ? {...pokemon, isFavorite: !pokemon.isFavorite} : {...pokemon}
-        })
+    setPokemons((prev: PokemonInterface[]) => {
+      return prev.map((pokemon: PokemonInterface) => {
+        return pokemon.id === id
+          ? { ...pokemon, isFavorite: !pokemon.isFavorite }
+          : { ...pokemon };
+      });
     });
   }
 
   const getPokemonData = async () => {
+    //Getting pokemon data from firebase
     const pokemons_part_one: any = await getPokemonsData(
       "Wk3Q6XDrYVsvVa557HYG"
     );
@@ -29,8 +35,16 @@ const PokedexContextProvider = ({ children }: any) => {
     const data_formated = data.map((data: PokemonInterface) => {
       return { ...data, isFavorite: false };
     });
+
+    //Getting pokemon types from PokeAPI
+    const resTypes = await fetch("https://pokeapi.co/api/v2/type");
+    const dataTypes = await resTypes.json();
+
+    //Setting state with new data
     setPokemons(data_formated);
+    setPokemonsFiltered(data_formated);
     setResetPokemons(data_formated);
+    setTypes(dataTypes.results.slice(0, 18));
   };
 
   useEffect(() => {
@@ -39,7 +53,17 @@ const PokedexContextProvider = ({ children }: any) => {
 
   return (
     <PokedexContext.Provider
-      value={{ pokemons, resetPokemons, setPokemons, toggleFavorite }}
+      value={{
+        pokemons,
+        pokemonsFiltered,
+        resetPokemons,
+        types,
+        searchActivate,
+        setSearchActive,
+        setPokemonsFiltered,
+        setPokemons,
+        toggleFavorite,
+      }}
     >
       {children}
     </PokedexContext.Provider>
