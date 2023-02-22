@@ -1,3 +1,5 @@
 export interface PokemonTypesInterface {
-    type: string;
+  name: string;
+  url: string;
+  type: any;
 }
