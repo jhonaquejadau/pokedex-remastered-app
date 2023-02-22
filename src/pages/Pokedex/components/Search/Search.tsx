@@ -2,20 +2,31 @@ import { PokemonInterface } from "@/models";
 import { useContext, useState } from "react";
 import { PokedexContextConsumer } from "../../context/PokedexContext";
 
-
 const Search = () => {
   const [input, setInput] = useState("");
-  const {pokemons,resetPokemons, setPokemons} = useContext(PokedexContextConsumer)
+  const { pokemons, resetPokemons, setPokemons, setSearchActive } = useContext(
+    PokedexContextConsumer
+  );
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     const { value } = e.target;
     setInput(value);
 
-    if(value === ""){
-      setPokemons(resetPokemons)
-    }else {
-      setPokemons(pokemons.filter((pokemon: PokemonInterface) => pokemon.name.includes(value) ))
+    if (value === "") {
+      setPokemons(resetPokemons);
+    } else {
+      setPokemons(
+        pokemons.filter((pokemon: PokemonInterface) =>
+          pokemon.name.includes(value)
+        )
+      );
+    }
+
+    if (value.length > 1) {
+      setSearchActive(true);
+    } else {
+      setSearchActive(false);
     }
   };
 
@@ -40,5 +51,3 @@ const Search = () => {
 };
 
 export default Search;
-
-

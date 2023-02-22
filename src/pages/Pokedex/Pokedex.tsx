@@ -1,5 +1,6 @@
 import React from "react";
 import { Search } from "./components";
+import { Filter } from "./components/Filter";
 import { Pokemons } from "./components/Pokemons";
 import { PokedexContextProvider } from "./context/PokedexContext";
 
@@ -10,6 +11,7 @@ const Pokedex: React.FC<PokedexInterface> = () => {
     <section className="w-[90%] mx-auto">
       <PokedexContextProvider>
         <Search />
+        <Filter/>
         <Pokemons />
       </PokedexContextProvider>
     </section>
